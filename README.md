@@ -24,6 +24,7 @@ User → AgentFlow (7860) → LLM Gateway (4000) → LocalLLM / Claude / OpenAI
 | **LocalLLM** | Ollama | 11434 | Local model inference |
 | **Billing** | Lago | 3200/3201 | Usage-based metering & invoicing |
 | **Billing Bridge** | Python | 8090 | ObserveLLM → Billing event metering |
+| **Auth Server** | Logto | 3301/3302 | SSO, identity, OIDC provider |
 | **Mail Server** | Stalwart | 4500 | Email (SMTP/IMAP) |
 | **Database** | PostgreSQL | internal | Shared database |
 

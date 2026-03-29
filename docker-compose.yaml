@@ -51,6 +51,12 @@
 #   POSTGRES_USER                – DB user                 (default: platform)
 #   POSTGRES_PASSWORD            – DB password             (default: platform)
 #
+#   Auth Server (Logto)
+#   AUTH_PORT                    – Auth UI port             (default: 3301)
+#   AUTH_ADMIN_PORT              – Auth admin port          (default: 3302)
+#   LOGTO_ENDPOINT               – Public auth URL          (default: http://localhost:3301)
+#   LOGTO_ADMIN_ENDPOINT         – Admin console URL        (default: http://localhost:3302)
+#
 #   Mail Server
 #   MAIL_PORT                    – HTTPS admin port        (default: 4500)
 #   STALWART_HOSTNAME            – Mail FQDN               (default: mail.example.com)
@@ -310,6 +316,30 @@ services:
     command: ["python3", "-u", "/app/bridge.py"]
     depends_on:
       - billing-api
+
+  # ══════════════════════════════════════════════════════════════════════
+  # Auth Server — SSO & Identity (Logto)
+  # ══════════════════════════════════════════════════════════════════════
+  auth:
+    image: svhd/logto:latest
+    restart: unless-stopped
+    ports:
+      - "${AUTH_PORT:-3301}:3001"
+      - "${AUTH_ADMIN_PORT:-3302}:3002"
+    environment:
+      - TRUST_PROXY_HEADER=1
+      - DB_URL=postgresql://${POSTGRES_USER:-platform}:${POSTGRES_PASSWORD:-platform}@db:5432/auth
+      - ENDPOINT=${LOGTO_ENDPOINT:-http://localhost:3301}
+      - ADMIN_ENDPOINT=${LOGTO_ADMIN_ENDPOINT:-http://localhost:3302}
+    depends_on:
+      db:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        compress: "true"
 
   # ══════════════════════════════════════════════════════════════════════
   # Mail Server (Stalwart)
