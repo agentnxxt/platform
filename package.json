@@ -1,0 +1,12 @@
+{
+  "name": "agentnext-platform",
+  "private": true,
+  "workspaces": [
+    "apps/content-studio",
+    "packages/types"
+  ],
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  }
+}

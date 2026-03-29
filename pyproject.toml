@@ -1,0 +1,9 @@
+[tool.uv.workspace]
+members = [
+  "apps/content-api",
+  "apps/content-orchestrator",
+  "packages/agents",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
