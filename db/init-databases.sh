@@ -14,6 +14,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
     CREATE DATABASE argilla;
     CREATE DATABASE temporal;
     CREATE DATABASE temporal_visibility;
+    CREATE DATABASE content;
 EOSQL
 
-echo "Platform databases created: agentflow, gateway, observellm, auth, agentcrew, camunda, marquez, mlflow, argilla, temporal, temporal_visibility"
+echo "Platform databases created: agentflow, gateway, observellm, auth, agentcrew, camunda, marquez, mlflow, argilla, temporal, temporal_visibility, content"

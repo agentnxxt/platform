@@ -571,27 +571,25 @@ services:
           memory: 1G
 
   # ══════════════════════════════════════════════════════════════════════
-  # Content Agent — Agentic Content Publishing (FastAPI + RAG)
+  # Content API — Agentic Content Service (FastAPI + RAG)
   # ══════════════════════════════════════════════════════════════════════
-  content-agent:
-    image: python:3.12-slim
+  content-api:
+    build:
+      context: .
+      dockerfile: apps/content-api/Dockerfile
     restart: unless-stopped
     <<: *hardened
     cap_add:
       - NET_BIND_SERVICE
     ports:
-      - "${CONTENT_AGENT_PORT:-8100}:8100"
+      - "${CONTENT_API_PORT:-8100}:8100"
     environment:
       - OLLAMA_URL=http://localllm:11434
       - QDRANT_URL=http://qdrant:6333
       - LITELLM_URL=http://gateway:4000
-      - AGENT_PORT=8100
-    volumes:
-      - ./content-agent/server.py:/app/server.py:ro
-    working_dir: /app
-    command: >
-      bash -c "pip install fastapi uvicorn httpx --quiet &&
-      python -u server.py"
+      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY:-sk-master}
+      - ORCHESTRATOR_URL=http://content-orchestrator:8200
+      - API_PORT=8100
     networks:
       - frontend
       - internal
@@ -603,6 +601,63 @@ services:
       - localllm
       - qdrant
       - gateway
+
+  # ══════════════════════════════════════════════════════════════════════
+  # Content Orchestrator — Temporal Worker (research → write → repurpose)
+  # ══════════════════════════════════════════════════════════════════════
+  content-orchestrator:
+    build:
+      context: .
+      dockerfile: apps/content-orchestrator/Dockerfile
+    restart: unless-stopped
+    <<: *hardened
+    cap_add:
+      - NET_BIND_SERVICE
+    ports:
+      - "${CONTENT_ORCHESTRATOR_PORT:-8200}:8200"
+    environment:
+      - TEMPORAL_HOST=temporal:7233
+      - OLLAMA_URL=http://localllm:11434
+      - LITELLM_URL=http://gateway:4000
+      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY:-sk-master}
+      - DEFAULT_MODEL=qwen2.5:7b
+      - FAST_MODEL=phi3.5:latest
+      - ORCHESTRATOR_PORT=8200
+    networks:
+      - frontend
+      - internal
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    depends_on:
+      - temporal
+      - localllm
+      - gateway
+
+  # ══════════════════════════════════════════════════════════════════════
+  # Content Studio — Next.js 15 Dashboard
+  # ══════════════════════════════════════════════════════════════════════
+  content-studio:
+    build:
+      context: .
+      dockerfile: apps/content-studio/Dockerfile
+    restart: unless-stopped
+    <<: *hardened
+    cap_add:
+      - NET_BIND_SERVICE
+    ports:
+      - "${CONTENT_STUDIO_PORT:-3600}:3600"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://${SERVER_IP:-localhost}:${CONTENT_API_PORT:-8100}
+    networks:
+      - frontend
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    depends_on:
+      - content-api
 
   # ══════════════════════════════════════════════════════════════════════
   # AgentStudio — AI Workflow Builder (Sim.ai / SimStudio)
