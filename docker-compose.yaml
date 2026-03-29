@@ -91,6 +91,31 @@ networks:
 
 services:
   # ══════════════════════════════════════════════════════════════════════
+  # Caddy — Reverse Proxy + Auto SSL (Let's Encrypt)
+  # ══════════════════════════════════════════════════════════════════════
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    <<: *hardened
+    cap_add:
+      - NET_BIND_SERVICE
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - frontend
+      - internal
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+  # ══════════════════════════════════════════════════════════════════════
   # AgentFlow — AI Workflow Builder (Langflow)
   # ══════════════════════════════════════════════════════════════════════
   agentflow:
@@ -643,7 +668,7 @@ services:
     ports:
       - "${CONTENT_STUDIO_PORT:-3600}:3600"
     environment:
-      - NEXT_PUBLIC_API_URL=http://${SERVER_IP:-localhost}:${CONTENT_API_PORT:-8100}
+      - NEXT_PUBLIC_API_URL=https://api.agnxxt.com
     networks:
       - frontend
     deploy:
@@ -1136,6 +1161,8 @@ services:
           memory: 256M
 
 volumes:
+  caddy_data:
+  caddy_config:
   agentflow_data:
   localllm_data:
   mailserver_data:

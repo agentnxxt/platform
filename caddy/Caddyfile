@@ -1,0 +1,118 @@
+# AutonomyX Platform — Caddy Reverse Proxy
+# Auto-SSL via Let's Encrypt for all *.agnxxt.com subdomains
+
+# ── AI Platform ──────────────────────────────────────────────
+
+agentflow.agnxxt.com {
+    reverse_proxy agentflow:7860
+}
+
+agentstudio.agnxxt.com {
+    reverse_proxy agentstudio:3000
+}
+
+agentstudio-realtime.agnxxt.com {
+    reverse_proxy agentstudio-realtime:3002
+}
+
+agentcrew.agnxxt.com {
+    reverse_proxy agentcrew:8501
+}
+
+gateway.agnxxt.com {
+    reverse_proxy gateway:4000
+}
+
+observellm.agnxxt.com {
+    reverse_proxy observellm:3000
+}
+
+localllm.agnxxt.com {
+    reverse_proxy localllm:11434
+}
+
+# ── Content CMS ──────────────────────────────────────────────
+
+content.agnxxt.com {
+    reverse_proxy content-studio:3600
+}
+
+api.agnxxt.com {
+    reverse_proxy content-api:8100
+}
+
+orchestrator.agnxxt.com {
+    reverse_proxy content-orchestrator:8200
+}
+
+# ── Auth & Billing ───────────────────────────────────────────
+
+auth.agnxxt.com {
+    reverse_proxy auth:3001
+}
+
+auth-admin.agnxxt.com {
+    reverse_proxy auth:3002
+}
+
+billing.agnxxt.com {
+    reverse_proxy billing-front:80
+}
+
+billing-api.agnxxt.com {
+    reverse_proxy billing-api:3000
+}
+
+# ── Decision Intelligence ─────────────────────────────────────
+
+temporal.agnxxt.com {
+    reverse_proxy temporal-ui:8080
+}
+
+camunda.agnxxt.com {
+    reverse_proxy camunda:8080
+}
+
+surrealdb.agnxxt.com {
+    reverse_proxy surrealdb:8000
+}
+
+opa.agnxxt.com {
+    reverse_proxy opa:8181
+}
+
+# ── Observability ─────────────────────────────────────────────
+
+grafana.agnxxt.com {
+    reverse_proxy grafana:3000
+}
+
+prometheus.agnxxt.com {
+    reverse_proxy prometheus:9090
+}
+
+mlflow.agnxxt.com {
+    reverse_proxy mlflow:5000
+}
+
+evidently.agnxxt.com {
+    reverse_proxy evidently:8085
+}
+
+argilla.agnxxt.com {
+    reverse_proxy argilla:6900
+}
+
+marquez.agnxxt.com {
+    reverse_proxy marquez-web:3000
+}
+
+# ── Messaging & Storage ───────────────────────────────────────
+
+nats.agnxxt.com {
+    reverse_proxy nats:8222
+}
+
+qdrant.agnxxt.com {
+    reverse_proxy qdrant:6333
+}
