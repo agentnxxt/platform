@@ -937,6 +937,7 @@ services:
     environment:
       - MARQUEZ_HOST=marquez
       - MARQUEZ_PORT=5000
+      - WEB_PORT=3000
     networks:
       - frontend
       - internal
@@ -962,7 +963,7 @@ services:
       - ARGILLA_DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-platform}:${POSTGRES_PASSWORD:-platform}@db:5432/argilla
       - ARGILLA_AUTH_SECRET_KEY=${ARGILLA_SECRET_KEY:-changeme_argilla_secret_32chars__}
       - USERNAME=argilla
-      - PASSWORD=${ARGILLA_PASSWORD:-admin}
+      - PASSWORD=${ARGILLA_PASSWORD:-adminpass1}
       - API_KEY=${ARGILLA_API_KEY:-argilla.apikey}
     volumes:
       - argilla_data:/home/argilla
