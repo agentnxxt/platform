@@ -733,33 +733,9 @@ services:
       db:
         condition: service_healthy
 
-  # ══════════════════════════════════════════════════════════════════════
-  # AgentSkills — Skills Catalog & MCP Registry (agentnxxt/agentskills)
-  # ══════════════════════════════════════════════════════════════════════
-  agentskills:
-    build:
-      context: https://github.com/agentnxxt/agentskills.git
-    restart: unless-stopped
-    <<: *hardened
-    cap_add:
-      - NET_BIND_SERVICE
-    ports:
-      - "${AGENTSKILLS_PORT:-3420}:3000"
-    environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-platform}:${POSTGRES_PASSWORD:-platform}@db:5432/agentskills
-      - OPENAI_API_BASE=http://gateway:4000/v1
-      - OPENAI_API_KEY=${LITELLM_MASTER_KEY:-sk-master}
-      - NODE_ENV=production
-    networks:
-      - frontend
-      - internal
-    deploy:
-      resources:
-        limits:
-          memory: 512M
-    depends_on:
-      db:
-        condition: service_healthy
+  # AgentSkills (agentnxxt/agentskills) is a Claude skill library (markdown/ZIP),
+  # not a web service — no Dockerfile, no port. Referenced here for documentation.
+  # Skills are loaded directly by Claude agents at runtime.
 
 volumes:
   agentflow_data:
