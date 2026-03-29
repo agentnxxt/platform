@@ -4,13 +4,16 @@ WORKDIR /app
 
 RUN pip install uv --quiet
 
-COPY pyproject.toml ./
-COPY ../../packages/agents/pyproject.toml ./packages/agents/pyproject.toml
-COPY ../../packages/agents/src ./packages/agents/src
+# Agents package (workspace dep)
+COPY packages/agents/pyproject.toml ./packages/agents/pyproject.toml
+COPY packages/agents/src ./packages/agents/src
 
+# Install dependencies
 RUN uv pip install --system temporalio fastapi uvicorn[standard] httpx pydantic
 
-COPY src ./src
+# App source
+COPY apps/content-orchestrator/src ./src
+COPY packages/agents/src/agents ./src/agents
 
 EXPOSE 8200
 

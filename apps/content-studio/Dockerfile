@@ -6,11 +6,13 @@ WORKDIR /app
 COPY package.json pnpm-workspace.yaml ./
 COPY apps/content-studio/package.json ./apps/content-studio/
 COPY packages/types/package.json ./packages/types/
-RUN pnpm install --frozen-lockfile
+COPY packages/types/src ./packages/types/src
+RUN pnpm install --no-frozen-lockfile
 
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/apps/content-studio/node_modules ./apps/content-studio/node_modules
 COPY . .
 RUN pnpm --filter @agentnext/content-studio build
 
