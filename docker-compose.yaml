@@ -761,8 +761,7 @@ services:
   # AgentCrew — CrewAI Studio (community UI for CrewAI agents)
   # ══════════════════════════════════════════════════════════════════════
   agentcrew:
-    build:
-      context: https://github.com/strnad/CrewAI-Studio.git
+    image: ghcr.io/agentnxxt/agentcrew:latest
     restart: unless-stopped
     <<: *hardened
     cap_add:
