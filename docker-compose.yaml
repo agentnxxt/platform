@@ -574,9 +574,7 @@ services:
   # Content API — Agentic Content Service (FastAPI + RAG)
   # ══════════════════════════════════════════════════════════════════════
   content-api:
-    build:
-      context: .
-      dockerfile: apps/content-api/Dockerfile
+    image: ghcr.io/agentnxxt/content-api:latest
     restart: unless-stopped
     <<: *hardened
     cap_add:
@@ -606,9 +604,7 @@ services:
   # Content Orchestrator — Temporal Worker (research → write → repurpose)
   # ══════════════════════════════════════════════════════════════════════
   content-orchestrator:
-    build:
-      context: .
-      dockerfile: apps/content-orchestrator/Dockerfile
+    image: ghcr.io/agentnxxt/content-orchestrator:latest
     restart: unless-stopped
     <<: *hardened
     cap_add:
@@ -639,9 +635,7 @@ services:
   # Content Studio — Next.js 15 Dashboard
   # ══════════════════════════════════════════════════════════════════════
   content-studio:
-    build:
-      context: .
-      dockerfile: apps/content-studio/Dockerfile
+    image: ghcr.io/agentnxxt/content-studio:latest
     restart: unless-stopped
     <<: *hardened
     cap_add:
