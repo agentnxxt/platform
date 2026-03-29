@@ -688,6 +688,7 @@ services:
     ports:
       - "${AGENTSTUDIO_REALTIME_PORT:-3401}:3002"
     environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-platform}:${POSTGRES_PASSWORD:-platform}@agentstudio-db:5432/simstudio
       - REDIS_URL=redis://redis:6379/2
       - INTERNAL_API_SECRET=${AGENTSTUDIO_INTERNAL_SECRET:-changeme_internal_secret_key_here}
       - PORT=3002
