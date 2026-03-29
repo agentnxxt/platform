@@ -749,6 +749,8 @@ services:
       # Cloud models (OpenAI, Anthropic) are configured per-user in SimStudio UI
       - OPENAI_API_BASE=http://gateway:4000/v1
       - OPENAI_API_KEY=${LITELLM_MASTER_KEY:-sk-master}
+      # SimStudio copilot — managed cloud service (sim.ai)
+      - COPILOT_API_KEY=${COPILOT_API_KEY:-}
       # Traces → ObserveLLM (Langfuse)
       - LANGFUSE_PUBLIC_KEY=${LANGFUSE_PUBLIC_KEY:-}
       - LANGFUSE_SECRET_KEY=${LANGFUSE_SECRET_KEY:-}
