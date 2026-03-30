@@ -75,6 +75,20 @@ orchestrator.agnxxt.com {
     reverse_proxy content-orchestrator:8200
 }
 
+# ── Mail ─────────────────────────────────────────────────
+
+mail.agnxxt.com {
+    reverse_proxy https://mailserver:443 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+traces.agnxxt.com {
+    reverse_proxy observellm:3000
+}
+
 # ── Auth & Billing ───────────────────────────────────────────
 
 auth.agnxxt.com {
