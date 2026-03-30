@@ -6,6 +6,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Clone strnad's CrewAI-Studio (main — no stable release exists)
 RUN git clone --depth 1 https://github.com/strnad/CrewAI-Studio.git /app
 
+# Patch: data dict from DB already contains 'id', so pop it before unpacking
+# to avoid "multiple values for keyword argument 'id'" on MyAgent()
+RUN sed -i \
+    's/agent = MyAgent(id=row\[0\], knowledge_source_ids=knowledge_source_ids, \*\*data)/data.pop("id", None); agent = MyAgent(id=row[0], knowledge_source_ids=knowledge_source_ids, **data)/' \
+    /app/app/db_utils.py
+
 WORKDIR /app
 
 # Install all deps (includes crewai==1.5.0 + crewai-tools==1.5.0)
