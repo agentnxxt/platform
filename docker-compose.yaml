@@ -72,6 +72,10 @@
 #   Typebot
 #   TYPEBOT_ENCRYPTION_SECRET    – 32-char secret          (generate: openssl rand -hex 16)
 #   SMTP_PASSWORD                – Stalwart SMTP password  (default: Autonomyx@2025!)
+#
+#   AgentCrew Tools
+#   SERPER_API_KEY               – Web search for crews    (get from serper.dev)
+#   SKYVERN_API_KEY              – Browser automation key  (get from Skyvern UI after setup)
 ##############################################################################
 
 # ── Shared hardening defaults ────────────────────────────────────────────
@@ -903,6 +907,13 @@ services:
       - LANGFUSE_PUBLIC_KEY=${LANGFUSE_PUBLIC_KEY:-}
       - LANGFUSE_SECRET_KEY=${LANGFUSE_SECRET_KEY:-}
       - LANGFUSE_HOST=http://observellm:3000
+      # Vector DB — Qdrant
+      - QDRANT_URL=http://qdrant:6333
+      # Browser automation — Skyvern REST API
+      - SKYVERN_API_URL=http://skyvern:8000
+      - SKYVERN_API_KEY=${SKYVERN_API_KEY:-}
+      # Web search
+      - SERPER_API_KEY=${SERPER_API_KEY:-}
     networks:
       - frontend
       - internal
