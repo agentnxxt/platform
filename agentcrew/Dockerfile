@@ -18,6 +18,7 @@ COPY searxng_tool.py /app/searxng_tool.py
 COPY trends_tool.py /app/trends_tool.py
 COPY amadeus_tool.py /app/amadeus_tool.py
 COPY wikipedia_tool.py /app/wikipedia_tool.py
+COPY g2_tool.py /app/g2_tool.py
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
