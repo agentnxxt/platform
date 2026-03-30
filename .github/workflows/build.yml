@@ -74,7 +74,7 @@ jobs:
         with:
           host: unboxd.cloud
           username: ubuntu
-          key: ${{ secrets.DEPLOY_KEY }}
+          password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
             cd ~/platform
             git pull
