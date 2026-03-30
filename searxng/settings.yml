@@ -180,6 +180,16 @@ engines:
     shortcut: bi
     disabled: false
 
+  - name: bing videos
+    engine: bing_videos
+    shortcut: bv
+    disabled: false
+
+  - name: bing shopping
+    engine: bing_shopping
+    shortcut: bs
+    disabled: false
+
   - name: unsplash
     engine: unsplash
     shortcut: us
