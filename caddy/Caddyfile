@@ -1,6 +1,16 @@
 # AutonomyX Platform — Caddy Reverse Proxy
 # Auto-SSL via Let's Encrypt for all *.agnxxt.com subdomains
 
+# ── Browser Automation ───────────────────────────────────────
+
+skyvern.agnxxt.com {
+    reverse_proxy skyvern-ui:8080
+}
+
+skyvern-api.agnxxt.com {
+    reverse_proxy skyvern:8000
+}
+
 # ── AI Chat & Chatbot Builder ─────────────────────────────────
 
 chat.agnxxt.com {

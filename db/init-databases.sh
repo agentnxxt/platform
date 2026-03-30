@@ -17,6 +17,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
     CREATE DATABASE content;
     CREATE DATABASE typebot;
     CREATE DATABASE librechat;
+    CREATE DATABASE skyvern;
 EOSQL
 
-echo "Platform databases created: agentflow, gateway, observellm, auth, agentcrew, camunda, marquez, mlflow, argilla, temporal, temporal_visibility, content, typebot, librechat"
+echo "Platform databases created: agentflow, gateway, observellm, auth, agentcrew, camunda, marquez, mlflow, argilla, temporal, temporal_visibility, content, typebot, librechat, skyvern"
