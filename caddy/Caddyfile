@@ -92,11 +92,11 @@ traces.agnxxt.com {
 # ── Auth & Billing ───────────────────────────────────────────
 
 auth.agnxxt.com {
-    reverse_proxy auth:3001
+    reverse_proxy 172.16.2.1:3301
 }
 
 auth-admin.agnxxt.com {
-    reverse_proxy auth:3002
+    reverse_proxy 172.16.2.1:3302
 }
 
 billing.agnxxt.com {
