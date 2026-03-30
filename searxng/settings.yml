@@ -132,17 +132,6 @@ engines:
     shortcut: w
     disabled: false
 
-  # ── Jobs ──────────────────────────────────────────────────────
-  - name: google jobs
-    engine: google_jobs
-    shortcut: gj
-    disabled: false
-
-  - name: linkedin
-    engine: linkedin
-    shortcut: li
-    disabled: false
-
   # ── Code & Tech ───────────────────────────────────────────────
   - name: github
     engine: github
@@ -166,7 +155,7 @@ engines:
 
   - name: dockerhub
     engine: docker_hub
-    shortcut: dh
+    shortcut: dhub
     disabled: false
 
   # ── Images ────────────────────────────────────────────────────
