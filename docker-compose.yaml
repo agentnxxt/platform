@@ -1754,6 +1754,62 @@ services:
     depends_on:
       - zabbix-server
 
+  # ══════════════════════════════════════════════════════════════════════
+  # Cognitive Memory Engine — AI Memory Layer for LibreChat
+  # ══════════════════════════════════════════════════════════════════════
+  cognitive-memory:
+    image: ghcr.io/agentnxt/cognitive-memory-engine:latest
+    restart: unless-stopped
+    <<: *hardened
+    cap_add:
+      - NET_BIND_SERVICE
+    ports:
+      - "${CME_PORT:-3100}:3100"
+    environment:
+      - PORT=3100
+      - NODE_ENV=production
+      - CME_API_KEY=${CME_API_KEY:-changeme_cme_api_key}
+      - SURREAL_URL=ws://cme-surrealdb:8000/rpc
+      - SURREAL_NS=cme
+      - SURREAL_DB=memory
+      - SURREAL_USER=root
+      - SURREAL_PASS=${CME_SURREAL_PASS:-changeme_surreal}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - ANTHROPIC_MODEL=${CME_ANTHROPIC_MODEL:-claude-sonnet-4-20250514}
+      - VOYAGE_API_KEY=${VOYAGE_API_KEY:-}
+      - VOYAGE_MODEL=${CME_VOYAGE_MODEL:-voyage-3-large}
+      - REFLECTION_CRON=*/15 * * * *
+      - REFLECTION_BATCH_SIZE=3
+    networks:
+      - frontend
+      - internal
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    depends_on:
+      - cme-surrealdb
+
+  cme-surrealdb:
+    image: surrealdb/surrealdb:v2.2
+    restart: unless-stopped
+    <<: *hardened
+    cap_add:
+      - NET_BIND_SERVICE
+      - CHOWN
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+    command: ["start", "--bind", "0.0.0.0:8000", "--user", "root", "--pass", "${CME_SURREAL_PASS:-changeme_surreal}", "file:/data/cme.db"]
+    volumes:
+      - cme_surreal_data:/data
+    networks:
+      - internal
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
 volumes:
   caddy_data:
   caddy_config:
@@ -1778,3 +1834,4 @@ volumes:
   skyvern_videos:
   skyvern_har:
   zabbix_db_data:
+  cme_surreal_data:
