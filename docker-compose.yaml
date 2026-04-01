@@ -1794,6 +1794,7 @@ services:
   cme-surrealdb:
     image: surrealdb/surrealdb:v2.2
     restart: unless-stopped
+    user: "0:0"
     logging:
       driver: "json-file"
       options:
