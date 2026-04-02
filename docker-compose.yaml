@@ -1777,7 +1777,7 @@ services:
       - PORT=3100
       - NODE_ENV=production
       - CME_API_KEY=${CME_API_KEY:-changeme_cme_api_key}
-      - SURREAL_URL=ws://cme-surrealdb:8000/rpc
+      - SURREAL_URL=http://cme-surrealdb:8000
       - SURREAL_NS=cme
       - SURREAL_DB=memory
       - SURREAL_USER=root
