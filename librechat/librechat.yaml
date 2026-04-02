@@ -35,3 +35,11 @@ mcpServers:
       - /app/mcp/agentcrew-mcp/index.mjs
     env:
       AGENTCREW_URL: http://agentcrew:8502
+
+  ollama:
+    type: stdio
+    command: node
+    args:
+      - /app/mcp/ollama-mcp/index.mjs
+    env:
+      OLLAMA_URL: http://localllm:11434

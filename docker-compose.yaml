@@ -1579,6 +1579,7 @@ services:
       - ./langflow-mcp:/app/mcp/langflow-mcp:ro
       - ./skyvern-mcp:/app/mcp/skyvern-mcp:ro
       - ./agentcrew-mcp:/app/mcp/agentcrew-mcp:ro
+      - ./ollama-mcp:/app/mcp/ollama-mcp:ro
     networks:
       - frontend
       - internal
