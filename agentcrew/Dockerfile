@@ -8,12 +8,7 @@ RUN git clone --depth 1 https://github.com/strnad/CrewAI-Studio.git /app
 
 # Patch: data dict from DB already contains 'id', so pop it before unpacking
 # to avoid "multiple values for keyword argument 'id'" on MyAgent() / MyTask()
-RUN sed -i \
-    's/agent = MyAgent(id=row\[0\], knowledge_source_ids=knowledge_source_ids, \*\*data)/data.pop("id", None); agent = MyAgent(id=row[0], knowledge_source_ids=knowledge_source_ids, **data)/' \
-    /app/app/db_utils.py
-RUN sed -i \
-    's/task = MyTask(id=row\[0\], agent=agents_dict.get(agent_id), \*\*data)/data.pop("id", None); task = MyTask(id=row[0], agent=agents_dict.get(agent_id), **data)/' \
-    /app/app/db_utils.py
+RUN sed -i '/data = row\[1\]/a\        data.pop("id", None)' /app/app/db_utils.py
 
 WORKDIR /app
 
