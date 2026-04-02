@@ -1571,6 +1571,11 @@ services:
       - LANGFUSE_BASE_URL=http://observellm:3000
       - ALLOW_REGISTRATION=true
       - ALLOW_SOCIAL_LOGIN=false
+      - CONFIG_PATH=/app/librechat.yaml
+      - SIMSTUDIO_API_KEY=${SIMSTUDIO_API_KEY:-}
+    volumes:
+      - ./librechat/librechat.yaml:/app/librechat.yaml:ro
+      - ./simstudio-mcp:/app/mcp/simstudio-mcp:ro
     networks:
       - frontend
       - internal

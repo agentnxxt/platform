@@ -1,0 +1,11 @@
+version: "1.0"
+
+mcpServers:
+  simstudio:
+    type: stdio
+    command: node
+    args:
+      - /app/mcp/simstudio-mcp/index.mjs
+    env:
+      SIMSTUDIO_URL: http://agentstudio:3000
+      SIMSTUDIO_API_KEY: "${SIMSTUDIO_API_KEY}"
