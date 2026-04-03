@@ -33,7 +33,7 @@ body {
 
   /* Left column content */
   body::after {
-    content: "Build smarter agents.\AAutomated. Observable.\ABilled.";
+    content: "AgentNxt\AYour AI Agent Platform.\ABuild. Deploy. Scale.";
     white-space: pre;
     display: block;
     position: fixed;

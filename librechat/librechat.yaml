@@ -1,5 +1,7 @@
 version: "1.0"
 
+appTitle: "AgentNxt · Chat"
+
 mcpServers:
   simstudio:
     type: stdio
