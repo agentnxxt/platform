@@ -159,6 +159,10 @@ memory.agnxxt.com {
     reverse_proxy cognitive-memory:3100
 }
 
+secrets.agnxxt.com {
+    reverse_proxy infisical:8080
+}
+
 marquez.agnxxt.com {
     reverse_proxy marquez-web:3000
 }
